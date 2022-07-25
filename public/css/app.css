@@ -1,0 +1,23 @@
+.bg-navbar {
+    background-color: #6590ee;
+}
+
+.navbar-light .navbar-brand {
+    color: #fff;
+}
+
+.movie-card {
+    width: 18rem;
+    margin: 10px 5px;
+}
+
+.required:after{
+    content:'*';
+    color:rgb(247, 100, 100);
+}
+
+.show-description {
+    height: 70%;
+    background-color: lightgray;
+    padding: 1rem;
+}
