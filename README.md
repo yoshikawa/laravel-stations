@@ -31,9 +31,6 @@
 ![スクリーンショット 2022-05-23 11 18 45](https://user-images.githubusercontent.com/16362021/169731216-395ab51b-85b1-4746-a825-63ae81c2a582.png)
 ![スクリーンショット 2022-05-23 11 19 44](https://user-images.githubusercontent.com/16362021/169731217-e27394e9-7f4a-46a2-b314-86c225194894.png)
 
-
-9. 最後に `docker compose exec php-container php artisan migrate:fresh --seed` を実行します。
-
 ## Windows における初期設定
 
 Windows での初期設定を行うためには、キャラクターユーザーインターフェイス（CUI）の操作を行う必要があります。
@@ -157,9 +154,6 @@ scoop install git nodejs-lts yarn
 
 ![スクリーンショット 2022-05-23 11 18 45](https://user-images.githubusercontent.com/16362021/169731216-395ab51b-85b1-4746-a825-63ae81c2a582.png)
 ![スクリーンショット 2022-05-23 11 19 44](https://user-images.githubusercontent.com/16362021/169731217-e27394e9-7f4a-46a2-b314-86c225194894.png)
-
-
-9. 最後に `docker compose exec php-container php artisan migrate:fresh --seed` を実行します。
 
 # データベースの中身を確認したい場合
 
