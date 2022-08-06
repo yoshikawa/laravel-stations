@@ -47,7 +47,7 @@ class SheetTest extends TestCase
     public function test座席予約画面が表示されるか(): void
     {
         [$movieId, $scheduleId] = $this->createMovieAndSchedule();
-        $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/sheets?date='.CarbonImmutable::now());
+        $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/sheets?screening_date='.CarbonImmutable::now()->format('Y-m-d'));
         $response->assertStatus(200);
     }
 
@@ -67,7 +67,7 @@ class SheetTest extends TestCase
     public function test予約ページが表示されるか(): void
     {
         [$movieId, $scheduleId] = $this->createMovieAndSchedule();
-        $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/reservations/create?date='.CarbonImmutable::now().'&sheetId='.Sheet::first()->id);
+        $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/reservations/create?screening_date='.CarbonImmutable::now()->format('Y-m-d').'&sheetId='.Sheet::first()->id);
         $response->assertStatus(200);
     }
 
@@ -79,7 +79,7 @@ class SheetTest extends TestCase
         [$movieId, $scheduleId] = $this->createMovieAndSchedule();
         $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/reservations/create');
         $response->assertStatus(400);
-        $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/reservations/create?date='.CarbonImmutable::now());
+        $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/reservations/create?screening_date='.CarbonImmutable::now()->format('Y-m-d'));
         $response->assertStatus(400);
         $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/reservations/create?sheetId='.Sheet::first()->id);
         $response->assertStatus(400);
@@ -97,7 +97,7 @@ class SheetTest extends TestCase
             'sheet_id' => Sheet::first()->id,
             'name' => '予約者氏名',
             'email' => "techbowl@techbowl.com",
-            'date' => CarbonImmutable::now()->format('Y-m-d'),
+            'screening_date' => CarbonImmutable::now()->format('Y-m-d'),
         ]);
         $response->assertStatus(302);
         $this->assertReservationCount(1);
@@ -115,10 +115,10 @@ class SheetTest extends TestCase
             'sheet_id' => null,
             'name' => null,
             'email' => "techbowl@",
-            'date' => null,
+            'screening_date' => null,
         ]);
         $response->assertStatus(302);
-        $response->assertInvalid(['schedule_id', 'sheet_id', 'name', 'email', 'date']);
+        $response->assertInvalid(['schedule_id', 'sheet_id', 'name', 'email', 'screening_date']);
         $this->assertReservationCount(0);
     }
 
@@ -133,7 +133,7 @@ class SheetTest extends TestCase
             'sheet_id' => Sheet::first()->id,
             'name' => '予約者氏名',
             'email' => "techbowl@techbowl.com",
-            'date' => CarbonImmutable::now()->format('Y-m-d'),
+            'screening_date' => CarbonImmutable::now()->format('Y-m-d'),
         ]);
         $this->assertReservationCount(1);
         $response = $this->post('/reservations/store', [
@@ -141,7 +141,7 @@ class SheetTest extends TestCase
             'sheet_id' => Sheet::first()->id,
             'name' => '予約者氏名',
             'email' => "techbowl@techbowl.com",
-            'date' => CarbonImmutable::now()->format('Y-m-d'),
+            'screening_date' => CarbonImmutable::now()->format('Y-m-d'),
         ]);
         $response->assertStatus(302);
         $this->assertReservationCount(1);
@@ -158,7 +158,7 @@ class SheetTest extends TestCase
             'sheet_id' => Sheet::first()->id,
             'name' => '予約者氏名',
             'email' => "techbowl@techbowl.com",
-            'date' => CarbonImmutable::now()->format('Y-m-d'),
+            'screening_date' => CarbonImmutable::now()->format('Y-m-d'),
         ]);
         $this->assertReservationCount(1);
         try {
@@ -167,7 +167,7 @@ class SheetTest extends TestCase
                 'sheet_id' => Sheet::first()->id,
                 'name' => '予約者氏名',
                 'email' => "techbowl@techbowl.com",
-                'date' => CarbonImmutable::now()->format('Y-m-d'),
+                'screening_date' => CarbonImmutable::now()->format('Y-m-d'),
             ]);
             $this->fail();
         } catch (\Exception $e) {
@@ -183,13 +183,13 @@ class SheetTest extends TestCase
     {
         [$movieId, $scheduleId] = $this->createMovieAndSchedule();
         Reservation::insert([
-            'date' => new CarbonImmutable(),
+            'screening_date' => new CarbonImmutable(),
             'schedule_id' => $scheduleId,
             'sheet_id' => Sheet::first()->id,
             'email' => 'sample@techbowl.com',
             'name' => 'サンプルユーザー',
         ]);
-        $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/reservations/create?date='.CarbonImmutable::now().'&sheetId='.Sheet::first()->id);
+        $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/reservations/create?screening_date='.CarbonImmutable::now()->format('Y-m-d').'&sheetId='.Sheet::first()->id);
         $response->assertStatus(400);
     }
 

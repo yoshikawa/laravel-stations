@@ -79,7 +79,7 @@ class SheetTest extends TestCase
         [$movieId, $scheduleId] = $this->createMovieAndSchedule();
         $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/reservations/create');
         $response->assertStatus(400);
-        $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/reservations/create?screening_date='.CarbonImmutable::now());
+        $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/reservations/create?screening_date='.CarbonImmutable::now()->format('Y-m-d'));
         $response->assertStatus(400);
         $response = $this->get('/movies/'.$movieId.'/schedules/'.$scheduleId.'/reservations/create?sheetId='.Sheet::first()->id);
         $response->assertStatus(400);
