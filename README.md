@@ -17,7 +17,8 @@
 ![d161a9cadf8e80bcaa66273d3f2ee10b](https://user-images.githubusercontent.com/16362021/149891105-ef42351e-006b-4985-95dc-a8c210ef19ea.gif)
 
 6. `docker compose up -d` を実行します。
-7. `docker compose ps` というコマンドを打って次のような表示になっていれば、ひとまずOKです！
+7. `docker compose exec php-container composer install` を実行します。
+8. `docker compose ps` というコマンドを打って次のような表示になっていれば、ひとまずOKです！
 
 ![スクリーンショット 2022-05-23 11 16 39](https://user-images.githubusercontent.com/16362021/169730921-fc40f8af-b8df-4074-adad-cba13b4a2d48.png)
 
@@ -141,6 +142,7 @@ scoop install git nodejs-lts yarn
 ![d161a9cadf8e80bcaa66273d3f2ee10b](https://user-images.githubusercontent.com/16362021/149891105-ef42351e-006b-4985-95dc-a8c210ef19ea.gif)
 
 6. `docker compose up -d` を実行します。
+6. `docker compose exec php-container composer install` を実行します。
 7. `docker compose ps` というコマンドを打って次のような表示になっていれば、ひとまずOKです！
 
 ![スクリーンショット 2022-05-23 11 16 39](https://user-images.githubusercontent.com/16362021/169730921-fc40f8af-b8df-4074-adad-cba13b4a2d48.png)
