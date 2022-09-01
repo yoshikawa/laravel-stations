@@ -1,4 +1,5 @@
 # 環境構築
+[スライド形式マニュアル](https://docs.google.com/presentation/d/16g_T-qrpcZx8OKeWB6QUUZFHzkfAjCp3EEJg74mE26Q/edit?usp=sharing)
 
 1. Docker Desktop
 
@@ -121,12 +122,12 @@ Set-ExecutionPolicy RemoteSigned -scope CurrentUser
 
 これらの操作を行うためには、ユーザーアカウントに[管理者権限](https://support.microsoft.com/ja-jp/windows/63267a09-9926-991a-1c77-d203160c8563)があることが前提となります。
 
-#### Git、node および yarn のインストール
+#### Gitのインストール
 
-Railway を進めるには、**Git**、**node**、**yarn**のインストールが必要です。管理者権限で起動した PowerShell に以下のコマンドを入力して、Scoop を経由してインストールしましょう：
+Railway を進めるには、**Git**のインストールが必要です。管理者権限で起動した PowerShell に以下のコマンドを入力して、Scoop を経由してインストールしましょう(すでにGitをインストールしてある場合はスキップしてください)：
 
 ```powershell
-scoop install git nodejs-lts yarn
+scoop install git
 ```
 
 #### 最後にこのリポジトリを自分のPC(ローカル環境)にダウンロード(Git Clone)します。
