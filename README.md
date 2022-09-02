@@ -5,10 +5,13 @@
 
 上記は必ずインストールした上で始めてください。
 
-## Macにおける初期設定
+## リポジトリのFork
+1. 画面右上にあるForkをクリックします。
+2. クリックすると「Create a new fork」というページに飛ぶので、そのページにある緑色の「create fork」というボタンをクリックします。
 
+## Macにおける初期設定
 1. Terminal.app を開きます
-2. `git clone git@github.com:TechBowl-japan/laravel-stations.git` で自分のPCにこのリポジトリをダウンロードします
+2. `git clone https://github.com/{{yourGitHubID}}/laravel-stations.git` で自分のPCにこのリポジトリをダウンロードします。
 3. `cd laravel-stations` でカレントディレクトリをダウンロードしたディレクトリである `laravel-stations` に移動します。
 4. `cp .env.example .env` を実行して、 `.env` ファイルを作成します。
 5. `docker compose build --no-cache` を実行します。
@@ -133,7 +136,7 @@ scoop install git
 #### 最後にこのリポジトリを自分のPC(ローカル環境)にダウンロード(Git Clone)します。
 
 1. PowerShell を開きます
-2. `git clone git@github.com:TechBowl-japan/laravel-stations.git` で自分のPCにこのリポジトリをダウンロードします
+2. `git clone https://github.com/{{yourGitHubID}}/laravel-stations.git` で自分のPCにこのリポジトリをダウンロードします
 3. `cd laravel-stations` でカレントディレクトリをダウンロードしたディレクトリである `laravel-stations` に移動します。
 4. `cp .env.example .env` を実行して、 `.env` ファイルを作成します。
 5. `docker compose build --no-cache` を実行します。
