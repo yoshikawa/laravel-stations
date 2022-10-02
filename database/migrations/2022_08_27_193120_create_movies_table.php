@@ -18,7 +18,7 @@ return new class extends Migration
             $table->text('title')->comment('映画タイトル');
             $table->text('image_url')->comment('画像URL');
             $table->integer('published_year')->comment('公開年');
-            $table->boolean('is_showing')->default(false)->comment('上映中かどうか');
+            $table->boolean('is_showing')->default(false)->comment('公開中かどうか');
             $table->text('description')->comment('概要');
             $table->timestamps();
         });
