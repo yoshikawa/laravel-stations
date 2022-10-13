@@ -4,8 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Movie;
 use Illuminate\Http\Request;
-use App\Http\Requests\PostRequest;
-use Exception;
 
 class AdminMovieController extends Controller
 {
@@ -80,6 +78,17 @@ class AdminMovieController extends Controller
                 'is_showing'  => $request->is_showing,
                 'published_year' => $request->published_year,
             ]);
-        return response()->view('getAdminMovie', ['movies' => Movie::all()], 302);
+        return redirect('/admin/movies')->with(['movies' => Movie::all()]);
+    }
+
+    public function destroy($id)
+    {
+        $movie = Movie::find($id);
+        if (is_null($movie)) {
+            abort(404);
+        }
+        $movie->delete();
+        session()->flash('flashmessage', '映画の削除が完了しました。');
+        return redirect('/admin/movies')->with(['movies' => Movie::all()]);
     }
 }
