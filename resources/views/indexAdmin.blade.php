@@ -37,7 +37,7 @@
             <tbody>
                 <td>{{ $movie->id }}</td>
                 <td>{{ $movie->title }}</td>
-                <td>{{ $movie->image_url }}</td>
+                <td><img src="{{$movie->image_url}}" alt=""></td>
                 <td>{{ $movie->published_year }}</td>
                 @if($movie->is_showing === 1)
                 <td>上映中</td>
