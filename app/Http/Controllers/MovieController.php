@@ -28,7 +28,7 @@ class MovieController extends Controller
             // var_dump($query->toSql(), $query->getBindings());
             $movies = $query->get();
         }
-        return view('indexMovie', ['movies' => $movies]);
+        return view('index', ['movies' => $movies]);
     }
 
     public function show($id)

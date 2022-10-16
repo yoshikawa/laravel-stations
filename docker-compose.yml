@@ -10,7 +10,7 @@ services:
         ports:
             - "${DOCKER_PORT:-8888}:80"
         volumes:
-            - ./:/var/www/:cached
+            - ./:/var/www/
             - ./server/docker/nginx/default.conf:/etc/nginx/conf.d/default.conf
         depends_on:
             - php-container

@@ -38,7 +38,7 @@
             @foreach ($movies as $movie)
             <tbody>
                 <td>{{ $movie->id }}</td>
-                <td><a href="/movies/{{$movie->id}}">{{ $movie->title }}</a></td>
+                <td>{{ $movie->title }}</td>
                 <td>{{ $movie->image_url }}</td>
                 <td>{{ $movie->published_year }}</td>
                 @if($movie->is_showing == 1)

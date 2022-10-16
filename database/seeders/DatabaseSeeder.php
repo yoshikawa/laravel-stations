@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
     {
         Practice::factory(10)->create();
         Movie::factory(10)->create();
+        $this->call(SheetTableSeeder::class);
     }
 }

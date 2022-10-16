@@ -11,12 +11,12 @@ class AdminMovieController extends Controller
     {
         $movies = Movie::all();
 
-        return view('indexAdmin', ['movies' => $movies]);
+        return view('admin/index', ['movies' => $movies]);
     }
 
     public function create()
     {
-        return view('indexAdmin');
+        return view('admin/index');
     }
 
     public function store(Request $request)
