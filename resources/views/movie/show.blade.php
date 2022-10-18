@@ -47,6 +47,24 @@
             <th>映画情報更新日時</th>
             <td>{{ $movie->updated_at }}</td>
         </tr>
+        @foreach($movie->schedules as $schedule)
+        <tr>
+            <th>上映開始時刻</th>
+            <td>{{ $schedule->start_time->format('H:i') }}</td>
+        </tr>
+        <tr>
+            <th>上映修了時刻</th>
+            <td>{{ $schedule->end_time->format('H:i') }}</td>
+        </tr>
+        <tr>
+            <th>上映情報作成日時</th>
+            <td>{{ $schedule->created_at }}</td>
+        </tr>
+        <tr>
+            <th>上映情報更新日時</th>
+            <td>{{ $schedule->updated_at }}</td>
+        </tr>
+        @endforeach
     </table>
 </div>
 

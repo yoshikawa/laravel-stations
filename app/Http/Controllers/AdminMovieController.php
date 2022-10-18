@@ -39,7 +39,7 @@ class AdminMovieController extends Controller
             "description" =>  $validate['description'],
         ]);
 
-        return redirect("admin/movies/index");
+        return redirect("admin/index");
     }
 
     /**
@@ -51,7 +51,7 @@ class AdminMovieController extends Controller
     public function edit($id)
     {
         $movie = Movie::find($id);
-        return view('editMovie')->with(['movie' => $movie]);
+        return view('admin/edit')->with(['movie' => $movie]);
     }
 
     /**
@@ -79,7 +79,7 @@ class AdminMovieController extends Controller
                 'is_showing'  => $request->is_showing,
                 'published_year' => $request->published_year,
             ]);
-        return redirect('/admin/movies')->with(['movies' => Movie::all()]);
+        return redirect('/admin/index')->with(['movies' => Movie::all()]);
     }
 
     public function destroy($id)
@@ -90,6 +90,6 @@ class AdminMovieController extends Controller
         }
         $movie->delete();
         session()->flash('flashmessage', '映画の削除が完了しました。');
-        return redirect('/admin/movies')->with(['movies' => Movie::all()]);
+        return redirect('/admin/index')->with(['movies' => Movie::all()]);
     }
 }

@@ -26,6 +26,11 @@ class Movie extends Model
     ];
 
 
+    public function schedules()
+    {
+        return $this->hasMany(Schedule::class);
+    }
+
     public static function search($request)
     {
         $util = new Utils();
