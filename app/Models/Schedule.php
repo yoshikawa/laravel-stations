@@ -11,10 +11,14 @@ class Schedule extends Model
 
     protected $dates = [
         'start_time',
-        'end_time'
+        'end_time',
+        'start_time_date',
+        'start_time_time',
+        'end_time_date',
+        'end_time_time',
     ];
 
-    public function BelongMovie()
+    public function Movies()
     {
         return $this->belongsTo(Movie::class);
     }

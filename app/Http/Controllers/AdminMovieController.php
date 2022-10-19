@@ -14,9 +14,16 @@ class AdminMovieController extends Controller
         return view('admin/index', ['movies' => $movies]);
     }
 
+    public function show($id)
+    {
+        return view('admin/show', [
+            'movie' => Movie::with('schedules')->find($id)
+        ]);
+    }
+
     public function create()
     {
-        return view('admin/index');
+        return view('movie/createMovie');
     }
 
     public function store(Request $request)

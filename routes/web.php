@@ -3,6 +3,7 @@
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\AdminMovieController;
+use App\Http\Controllers\AdminScheduleController;
 use App\Http\Controllers\SheetController;
 use App\Http\Controllers\ScheduleController;
 use Illuminate\Support\Facades\Route;
@@ -28,16 +29,30 @@ Route::get('/practice3', [PracticeController::class, 'sample3']);
 Route::get('/getPractice', [PracticeController::class, 'getPractice']);
 Route::get('/movies', [MovieController::class, 'index']);
 Route::get('/movies/{id}', [MovieController::class, 'show']);
-Route::get('/admin/movies', [AdminMovieController::class, 'index']);
-Route::get('/admin/movies/create', [AdminMovieController::class, 'index']);
-Route::post('/admin/movies/store', [AdminMovieController::class, 'store']);
-Route::get('/admin/movies/{id}/edit', [AdminMovieController::class, 'edit']);
-Route::patch('/admin/movies/{id}/update', [AdminMovieController::class, 'update']);
-Route::delete('/admin/movies/{id}/destroy', [AdminMovieController::class, 'destroy']);
 Route::get('sheets', [SheetController::class, 'index']);
-Route::get('/admin/schedules', [ScheduleController::class, 'index']);
-Route::get('/admin/schedules/{id}', [ScheduleController::class, 'show']);
-Route::get('/admin/movies/{id}/schedules/create', [ScheduleController::class, 'create']);
-Route::get('/admin/schedules/{scheduleId}/edit', [ScheduleController::class, 'edit']);
-Route::patch('/admin/schedules/{scheduleId}/update', [ScheduleController::class, 'update']);
-Route::delete('/admin/schedules/{scheduleId}/destroy', [ScheduleController::class, 'destroy']);
+
+Route::prefix('/admin/movies')->group(function () {
+    Route::get('/', [AdminMovieController::class, 'index']);
+    Route::post('/search', [AdminMovieController::class, '']);
+    Route::get('/create', [AdminMovieController::class, 'create']);
+    Route::post('/store', [AdminMovieController::class, 'store']);
+    Route::get('/{id}/edit', [AdminMovieController::class, 'edit']);
+    Route::patch('/{id}/update', [AdminMovieController::class, 'update']);
+    Route::delete('/{id}/destroy', [AdminMovieController::class, 'destroy']);
+
+    Route::get('/{id}', [AdminMovieController::class, 'show']);
+    Route::get('/{id}/schedules/create', [AdminScheduleController::class, 'create']);
+    Route::post('/{id}/schedules/store', [AdminScheduleController::class, 'store']);
+
+    Route::fallback(function () {
+        return abort(404);
+    });
+});
+
+Route::prefix('/admin/schedules')->group(function () {
+    Route::get('/', [AdminScheduleController::class, 'index']);
+    Route::get('/{id}', [AdminScheduleController::class, 'show']);
+    Route::get('/{id}/edit', [AdminScheduleController::class, 'edit']);
+    Route::patch('/{id}/update', [AdminScheduleController::class, 'update']);
+    Route::delete('/{id}/destroy', [AdminScheduleController::class, 'destroy']);
+});

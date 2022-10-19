@@ -2,15 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Schedule;
 use App\Models\Movie;
+use App\Models\Schedule;
 use App\Http\Requests\ScheduleRequest;
 use Exception;
 
-class ScheduleController extends Controller
+class AdminScheduleController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
         $movies = Movie::all();
         return view('admin/schedules/index', ['movies' => $movies]);
@@ -18,8 +17,8 @@ class ScheduleController extends Controller
 
     public function show($id)
     {
-        $movie = Movie::find($id);
-        return view('admin/schedules/show', ['movie' => $movie]);
+        $schedule = Schedule::find($id);
+        return view('admin/schedules/show', ['schedule' => $schedule]);
     }
 
     public function create($id)
