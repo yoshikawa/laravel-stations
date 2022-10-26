@@ -51,6 +51,7 @@ class ScheduleTest extends TestCase
         $response->assertStatus(200);
 
         foreach ($movie->schedules as $schedule) {
+            // TODO: H:iに直す
             $response->assertSeeText($schedule->start_time->format('h:i'));
             $response->assertSeeText($schedule->end_time->format('h:i'));
         }

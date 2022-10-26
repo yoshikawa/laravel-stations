@@ -47,19 +47,20 @@ class AdminScheduleController extends Controller
         $schedule = Schedule::find($id);
         return view('admin/schedules/edit', ['schedule' => $schedule]);
     }
-    public function update(ScheduleRequest $request)
+
+    public function update($id, ScheduleRequest $request)
     {
         try {
-            $schedule = Schedule::find($request->id);
-            $schedule->start_time = $request->start_time_time;
-            $schedule->end_time = $request->end_time_time;
-            $schedule->save();
+            $schedule = new Schedule();
+            $schedule->updateSchedule($id, $request);
+
             return response()->view('admin/schedules/update', ['request' => $request], 302);
         } catch (Exception $e) {
             session()->flash('fhashmessage', 'エラーが発生しました。');
             return redirect('admin/schedules/edit', ['request' => $request]);
         }
     }
+
     public function destroy($id)
     {
         $schedule = Schedule::find($id);

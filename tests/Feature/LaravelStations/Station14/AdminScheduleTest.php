@@ -19,7 +19,7 @@ class AdminScheduleTest extends TestCase
     {
         $count = 12;
         for ($i = 0; $i < $count; $i++) {
-            $movieId = $this->createMovie('タイトル'.$i)->id;
+            $movieId = $this->createMovie('タイトル' . $i)->id;
             for ($j = 0; $j < 10; $j++) {
                 Schedule::insert([
                     'movie_id' => $movieId,
@@ -30,7 +30,7 @@ class AdminScheduleTest extends TestCase
         }
         $movies = Movie::all();
         foreach ($movies as $movie) {
-            $response = $this->get('/admin/movies/'.$movie->id);
+            $response = $this->get('/admin/movies/' . $movie->id);
             $response->assertStatus(200);
             $response->assertSeeText($movie->title);
             $response->assertSee($movie->image_url);
@@ -56,7 +56,7 @@ class AdminScheduleTest extends TestCase
     public function test管理者映画スケジュール作成画面が表示されているか(): void
     {
         $movieId = $this->createMovie('タイトル')->id;
-        $response = $this->get('/admin/movies/'.$movieId.'/schedules/create');
+        $response = $this->get('/admin/movies/' . $movieId . '/schedules/create');
         $response->assertStatus(200);
     }
 
@@ -67,7 +67,7 @@ class AdminScheduleTest extends TestCase
     {
         $this->assertScheduleCount(0);
         $movieId = $this->createMovie('タイトル')->id;
-        $response = $this->post('/admin/movies/'.$movieId.'/schedules/store', [
+        $response = $this->post('/admin/movies/' . $movieId . '/schedules/store', [
             'movie_id' => $movieId,
             'start_time_date' => CarbonImmutable::now()->format('Y-m-d'),
             'start_time_time' => CarbonImmutable::now()->format('H:i'),
@@ -85,7 +85,7 @@ class AdminScheduleTest extends TestCase
     {
         $this->assertScheduleCount(0);
         $movieId = $this->createMovie('タイトル')->id;
-        $response = $this->post('/admin/movies/'.$movieId.'/schedules/store', [
+        $response = $this->post('/admin/movies/' . $movieId . '/schedules/store', [
             'movie_id' => null,
             'start_time_date' => null,
             'start_time_time' => null,
@@ -104,7 +104,7 @@ class AdminScheduleTest extends TestCase
     {
         $this->assertScheduleCount(0);
         $movieId = $this->createMovie('タイトル')->id;
-        $response = $this->post('/admin/movies/'.$movieId.'/schedules/store', [
+        $response = $this->post('/admin/movies/' . $movieId . '/schedules/store', [
             'movie_id' => $movieId,
             'start_time_date' => '2022/01/01',
             'start_time_time' => '01時00分',
@@ -133,7 +133,7 @@ class AdminScheduleTest extends TestCase
             'start_time' => CarbonImmutable::now(),
             'end_time' => CarbonImmutable::now()->addHours(2),
         ]);
-        $response = $this->get('/admin/schedules/'.$scheduleId.'/edit');
+        $response = $this->get('/admin/schedules/' . $scheduleId . '/edit');
         $response->assertStatus(200);
     }
 
@@ -150,7 +150,7 @@ class AdminScheduleTest extends TestCase
             'start_time' => $startTime,
             'end_time' => $endTime,
         ]);
-        $response = $this->patch('/admin/schedules/'.$scheduleId.'/update', [
+        $response = $this->patch('/admin/schedules/' . $scheduleId . '/update', [
             'movie_id' => $movieId,
             'start_time_date' => $startTime->addHours(2)->format('Y-m-d'),
             'start_time_time' => $startTime->addHours(2)->format('H:i'),
@@ -176,7 +176,7 @@ class AdminScheduleTest extends TestCase
             'start_time' => $startTime,
             'end_time' => $endTime,
         ]);
-        $response = $this->patch('/admin/schedules/'.$scheduleId.'/update', [
+        $response = $this->patch('/admin/schedules/' . $scheduleId . '/update', [
             'movie_id' => null,
             'start_time_date' => null,
             'start_time_time' => null,
@@ -200,7 +200,7 @@ class AdminScheduleTest extends TestCase
             'start_time' => $startTime,
             'end_time' => $endTime,
         ]);
-        $response = $this->patch('/admin/schedules/'.$scheduleId.'/update', [
+        $response = $this->patch('/admin/schedules/' . $scheduleId . '/update', [
             'movie_id' => $movieId,
             'start_time_date' => '2022/01/01',
             'start_time_time' => '01時00分',
@@ -237,7 +237,7 @@ class AdminScheduleTest extends TestCase
             'end_time' => $endTime,
         ]);
         $this->assertScheduleCount(1);
-        $response = $this->delete('/admin/schedules/'.$scheduleId.'/destroy');
+        $response = $this->delete('/admin/schedules/' . $scheduleId . '/destroy');
         $response->assertStatus(302);
         $this->assertScheduleCount(0);
     }

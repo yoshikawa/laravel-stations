@@ -15,10 +15,10 @@ class ScheduleRequest extends FormRequest
     {
         return [
             'movie_id' => 'required',
-            'start_time_date' => 'required',
-            'start_time_time' => 'required',
-            'end_time_date' => 'required',
-            'end_time_time' => 'required',
+            'start_time_date' => 'required|date|date_format:Y-m-d',
+            'start_time_time' => 'required|date_format:H:i',
+            'end_time_date'   => 'required|date|date_format:Y-m-d',
+            'end_time_time'   => 'required|date_format:H:i',
         ];
     }
 
