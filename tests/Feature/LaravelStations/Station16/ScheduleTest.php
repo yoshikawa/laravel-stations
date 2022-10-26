@@ -18,7 +18,7 @@ class ScheduleTest extends TestCase
     public function test映画詳細ページが表示されるか(): void
     {
         $movie = $this->createMovie();
-        $response = $this->get('/movies/'.$movie->id);
+        $response = $this->get('/movies/' . $movie->id);
         $response->assertStatus(200);
         $response->assertSeeText($movie->title);
         $response->assertSee($movie->image_url);
@@ -47,12 +47,12 @@ class ScheduleTest extends TestCase
         $this->createSchedule($movie->id);
         $movie = Movie::with('schedules')->find($movie->id);
 
-        $response = $this->get('/movies/'.$movie->id);
+        $response = $this->get('/movies/' . $movie->id);
         $response->assertStatus(200);
 
         foreach ($movie->schedules as $schedule) {
-            $response->assertSeeText($schedule->start_time->format('h:m'));
-            $response->assertSeeText($schedule->end_time->format('h:m'));
+            $response->assertSeeText($schedule->start_time->format('h:i'));
+            $response->assertSeeText($schedule->end_time->format('h:i'));
         }
     }
 
@@ -67,7 +67,7 @@ class ScheduleTest extends TestCase
             'start_time' => CarbonImmutable::now(),
             'end_time' => CarbonImmutable::now()->addHour(),
         ]);
-        $response = $this->get('/movies/'.$movie->id);
+        $response = $this->get('/movies/' . $movie->id);
         $response->assertStatus(200);
         $response->assertSeeText('座席を予約する');
     }
