@@ -47,16 +47,20 @@
             <th>映画情報更新日時</th>
             <td>{{date('Y-m-d H:i:s', strtotime($movie->updated_at));}}</td>
         </tr>
+        <tr>
+            <th>開始</th>
+            <td>終了</td>
+        </tr>
         @foreach($movie->schedules as $schedule)
         <tr>
-            <th>上映開始時刻</th>
             <!-- TODO: H:iに直す -->
             <td>{{date('h:i', strtotime($schedule->start_time));}}</td>
-        </tr>
-        <tr>
-            <th>上映修了時刻</th>
-            <!-- TODO: H:iに直す -->
             <td>{{date('h:i', strtotime($schedule->end_time));}}</td>
+            <td>
+                <a href="/movies/{{$movie->id}}/schedules/{{$schedule->id}}/sheets?screening_date={{date('Y-m-d', strtotime($schedule->start_time))}}">
+                    <button type="button">座席を予約する</button>
+                </a>
+            </td>
         </tr>
         <tr>
             <th>上映情報作成日時</th>

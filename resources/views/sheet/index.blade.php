@@ -1,33 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>シート一覧</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>シート一覧</title>
 </head>
+
 <body>
+    @if (session('message'))
+    <p>{{ session('message') }}</p>
+    @endif
     <div class='sheets_all'>
-        <table>
-            <tbody>
-                <tr>
-                    <td>:-:</td>
-                    <td>:-:</td>
-                    <td>:-:</td>
-                    <td>:-:</td>
-                    <td>:-:</td>
-                </tr>
-                @foreach($sheets as $sheet)
-                @if($sheet->column == 1)
-                    <tr>
-                @endif
-                <td>{{ $sheet->row }}-{{ $sheet->column }}</td>
-                @if($sheet->column == 5)
-                    </tr>
-                @endif
+        <table class="sheetTable">
+            {{-- <tr>
+            @foreach ($rowA as $sheet)
+                <td>
+                    {{$sheet->row}}-{{$sheet->column}}
+            </td>
+            @endforeach
+            </tr>
+            <tr>
+                @foreach ($rowB as $sheet)
+                <td>
+                    {{$sheet->row}}-{{$sheet->column}}
+                </td>
                 @endforeach
-            </tbody>
+            </tr>
+            <tr>
+                @foreach ($rowC as $sheet)
+                <td>
+                    {{$sheet->row}}-{{$sheet->column}}
+                </td>
+                @endforeach
+            </tr> --}}
+            @php $switchFlag = "a"; @endphp
+
+            <tr>
+                @foreach ($sheets as $sheet)
+                {{-- rowが切り替わる時に改行 --}}
+                @if ($switchFlag !== $sheet->row)
+            </tr>
+            <tr>
+                @php $switchFlag = $sheet->row @endphp
+                @endif
+
+                <td>
+                    <a href="/movies/{{$movie_id}}/schedules/{{$schedule_id}}/reservations/create?screening_date={{$screening_date}}&sheetId={{$sheet->id}}">
+                        {{$sheet->row}}-{{$sheet->column}}
+                    </a>
+                </td>
+
+                @endforeach
+            </tr>
         </table>
     </div>
 </body>
+
 </html>

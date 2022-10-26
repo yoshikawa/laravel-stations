@@ -5,7 +5,7 @@ use App\Http\Controllers\MovieController;
 use App\Http\Controllers\AdminMovieController;
 use App\Http\Controllers\AdminScheduleController;
 use App\Http\Controllers\SheetController;
-use App\Http\Controllers\ScheduleController;
+use App\Http\Controllers\ReservationController;
 use Illuminate\Support\Facades\Route;
 /*
 |-------------------------------------------------------------------------
@@ -27,8 +27,13 @@ Route::get('/practice', [PracticeController::class, 'sample']);
 Route::get('/practice2', [PracticeController::class, 'sample2']);
 Route::get('/practice3', [PracticeController::class, 'sample3']);
 Route::get('/getPractice', [PracticeController::class, 'getPractice']);
-Route::get('/movies', [MovieController::class, 'index']);
-Route::get('/movies/{id}', [MovieController::class, 'show']);
+Route::prefix('/movies')->group(function () {
+    Route::get('/', [MovieController::class, 'index']);
+    Route::get('/{id}', [MovieController::class, 'show']);
+    Route::get('/{movie_id}/schedules/{schedule_id}/sheets', [ReservationController::class, 'index']);
+    Route::get('/{movie_id}/schedules/{schedule_id}/reservations/create', [ReservationController::class, 'create']);
+});
+
 Route::get('sheets', [SheetController::class, 'index']);
 
 Route::prefix('/admin/movies')->group(function () {
@@ -47,6 +52,10 @@ Route::prefix('/admin/movies')->group(function () {
     Route::fallback(function () {
         return abort(404);
     });
+});
+
+Route::prefix('/reservations')->group(function () {
+    Route::post('/store', [ReservationController::class, 'store']);
 });
 
 Route::prefix('/admin/schedules')->group(function () {

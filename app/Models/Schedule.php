@@ -27,6 +27,11 @@ class Schedule extends Model
         return $this->belongsTo(Movie::class);
     }
 
+    public function Reservations()
+    {
+        return $this->belongsTo(Reservation::class);
+    }
+
     public function storeSchedule($request)
     {
         DB::transaction(function () use ($request) {
