@@ -19,13 +19,19 @@ class ReservationController extends Controller
             "schedule_id"    => $schedule_id,
             "screening_date" => $request->screening_date,
             "sheets" => Sheet::all(),
-            "reserved_list" => Reservation::isAllreadyReserved($schedule_id)
+            "reserved_list" => Reservation::isAlreadyReserved($schedule_id)
         ]);
     }
 
     public function create($movie_id, $schedule_id, Request $request)
     {
         if (empty($request->screening_date) || empty($request->sheetId)) {
+            abort(400);
+        }
+
+        $reservation = new Reservation();
+
+        if ($reservation->isReserved($request, $schedule_id)) {
             abort(400);
         }
 
@@ -49,7 +55,7 @@ class ReservationController extends Controller
 
         $reservation = new Reservation();
 
-        if ($reservation->isAllReadyExist($request)) {
+        if ($reservation->isAlreadyExist($request)) {
             return redirect("/movies/{$request->movie_id}/schedules/{$request->schedule_id}/sheets?screening_date={$request->screening_date}")->with([
                 "message"        => "そこはすでに予約されています",
                 "movie_id"       => $request->movie_id,

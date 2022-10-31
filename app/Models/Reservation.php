@@ -39,7 +39,7 @@ class Reservation extends Model
         });
     }
 
-    public static function updateReservateion($reservation_id, $request)
+    public static function updateReservation($reservation_id, $request)
     {
         DB::transaction(function () use ($reservation_id, $request) {
             Reservation::where('id', '=', $reservation_id)
@@ -75,7 +75,7 @@ class Reservation extends Model
     }
 
 
-    public static function isAllreadyReserved($schedule_id)
+    public static function isAlreadyReserved($schedule_id)
     {
         $returnValueList = Reservation::select("sheet_id")->where("schedule_id", "=", $schedule_id)->get();
         $reservedSheetList = [];
@@ -87,10 +87,17 @@ class Reservation extends Model
         return $reservedSheetList;
     }
 
-    public function isAllReadyExist($request)
+    public function isAlreadyExist($request)
     {
         return Reservation::where("schedule_id", "=", $request->schedule_id)
             ->where("sheet_id", "=", $request->sheet_id)
+            ->exists();
+    }
+
+    public function isReserved($request, $schedule_id)
+    {
+        return Reservation::where("schedule_id", "=", $schedule_id)
+            ->where("sheet_id", "=", $request->sheetId)
             ->exists();
     }
 }

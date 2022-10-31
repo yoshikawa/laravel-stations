@@ -14,23 +14,14 @@ class AdminReservationController extends Controller
         return view('admin/reservations/index', ['reservations' => Reservation::with('sheet')->where("reservations.screening_date", ">=", CarbonImmutable::now())->get()]);
     }
 
-    public function create($movie_id, $schedule_id, ReservationRequest $request)
+    public function create()
     {
-        if (empty($request->screening_date) || empty($request->sheetId)) {
-            abort(400);
-        }
-
-        return view('movie.reservation', [
-            "movie_id"       => $movie_id,
-            "schedule_id"    => $schedule_id,
-            "screening_date" => $request->screening_date,
-            "sheetId"        => $request->sheetId
-        ]);
+        return view('admin.reservations.create');
     }
 
     public function edit($reservation_id)
     {
-        return view('admin.reservation.edit', [
+        return view('admin.reservations.edit', [
             "reservation" => Reservation::find($reservation_id),
             "movie_id"    => Reservation::getIdOfMovieReservated($reservation_id)
         ]);
@@ -44,7 +35,7 @@ class AdminReservationController extends Controller
 
         $reservation = new Reservation();
 
-        if ($reservation->isAllReadyExist($request)) {
+        if ($reservation->isAlreadyExist($request)) {
             return redirect("/movies/{$request->movie_id}/schedules/{$request->schedule_id}/sheets?screening_date={$request->screening_date}")->with([
                 "message"        => "そこはすでに予約されています",
                 "movie_id"       => $request->movie_id,

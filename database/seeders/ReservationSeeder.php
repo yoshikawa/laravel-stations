@@ -22,11 +22,11 @@ class ReservationSeeder extends Seeder
         for ($i = 0; $i < $count; $i++) {
             $movieId = $this->createMovie('表示しないタイトル' . $i)->id;
             Reservation::insert([
-                'screening_date' => new CarbonImmutable('2020-01-01'),
+                'screening_date' => new CarbonImmutable('2050-01-01'),
                 'schedule_id' => Schedule::insertGetId([
                     'movie_id' => $movieId,
-                    'start_time' => new CarbonImmutable('2020-01-01 00:00:00'),
-                    'end_time' => new CarbonImmutable('2020-01-01 02:00:00'),
+                    'start_time' => new CarbonImmutable('2050-01-01 00:00:00'),
+                    'end_time' => new CarbonImmutable('2050-01-01 02:00:00'),
                 ]),
                 'sheet_id' => $i + 1,
                 'email' => 'sample@exmaple.com',

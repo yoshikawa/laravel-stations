@@ -20,6 +20,6 @@ class DatabaseSeeder extends Seeder
         Movie::factory(10)->create();
         Schedule::factory(10)->create();
         $this->call(SheetSeeder::class);
-        $this->call(ReservationSeeder::class);
+        // $this->call(ReservationSeeder::class);
     }
 }
