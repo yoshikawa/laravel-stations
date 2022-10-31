@@ -59,7 +59,7 @@ class ReservationController extends Controller
             ]);
         }
 
-        $reservation->storeReservateion($request);
+        $reservation->storeReservation($request);
 
         return redirect("movies/{$request->movie_id}")->with([
             'message'   => "予約した",

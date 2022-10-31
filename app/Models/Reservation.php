@@ -16,17 +16,17 @@ class Reservation extends Model
         'updated_at',
     ];
 
-    public function Sheets()
+    public function sheet()
     {
-        return $this->hasMany(Sheet::class);
+        return $this->belongsTo(Sheet::class);
     }
 
     public function Schedules()
     {
-        return $this->hasMany(Schedule::class);
+        return $this->belongsTo(Schedule::class);
     }
 
-    public function storeReservateion($request)
+    public function storeReservation($request)
     {
         DB::transaction(function () use ($request) {
             Reservation::create([
@@ -38,6 +38,42 @@ class Reservation extends Model
             ]);
         });
     }
+
+    public static function updateReservateion($reservation_id, $request)
+    {
+        DB::transaction(function () use ($reservation_id, $request) {
+            Reservation::where('id', '=', $reservation_id)
+                ->update([
+                    "screening_date" => $request->screening_date,
+                    "schedule_id"    => $request->schedule_id,
+                    "sheet_id" => $request->sheet_id,
+                    "email"    => $request->email,
+                    "name"     => $request->name,
+                ]);
+        });
+    }
+
+    public static function deleteReservation($reservation_id)
+    {
+        DB::transaction(function () use ($reservation_id) {
+            Reservation::where('id', '=', $reservation_id)
+                ->delete();
+        });
+    }
+
+    public static function getIdOfMovieReservated()
+    {
+        return Reservation::select('movies.id as movie_id')
+            ->join("schedules", "schedules.id", "=", 'reservations.schedule_id')
+            ->join("movies", "movies.id", "=", "schedules.movie_id")
+            ->first();
+    }
+
+    public static function isExist($reservation_id)
+    {
+        return Reservation::where('id', '=', $reservation_id)->exists();
+    }
+
 
     public static function isAllreadyReserved($schedule_id)
     {

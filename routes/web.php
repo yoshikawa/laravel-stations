@@ -3,6 +3,7 @@
 use App\Http\Controllers\PracticeController;
 use App\Http\Controllers\MovieController;
 use App\Http\Controllers\AdminMovieController;
+use App\Http\Controllers\AdminReservationController;
 use App\Http\Controllers\AdminScheduleController;
 use App\Http\Controllers\SheetController;
 use App\Http\Controllers\ReservationController;
@@ -64,4 +65,18 @@ Route::prefix('/admin/schedules')->group(function () {
     Route::get('/{id}/edit', [AdminScheduleController::class, 'edit']);
     Route::patch('/{id}/update', [AdminScheduleController::class, 'update']);
     Route::delete('/{id}/destroy', [AdminScheduleController::class, 'destroy']);
+});
+
+
+Route::prefix('admin/reservations')->group(function () {
+    Route::get('/', [AdminReservationController::class, 'index']);
+    Route::get('/create', [AdminReservationController::class, 'create']);
+    Route::post('/store', [AdminReservationController::class, 'store']);
+    Route::get('/{id}/edit', [AdminReservationController::class, 'edit']);
+    Route::patch('/{id}', [AdminReservationController::class, 'update']);
+    Route::delete('/{id}', [AdminReservationController::class, 'destroy']);
+
+    Route::fallback(function () {
+        return abort(404);
+    });
 });
