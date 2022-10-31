@@ -57,7 +57,7 @@ class AdminReservationController extends Controller
         if (empty($request->screening_date) || empty($request->sheet_id) || empty($request->movie_id) || empty($request->schedule_id) || empty($request->name) || empty($request->email)) {
             abort(400);
         }
-        Reservation::updateReservateion($reservation_id, $request);
+        Reservation::updateReservation($reservation_id, $request);
 
         return redirect("/admin/reservations")->with([
             'message'   => "更新した",
